@@ -1,62 +1,75 @@
 <!DOCTYPE html>
-<html>
+<html lang="es">
 <head>
-	<meta charset="utf-8">
-	<meta name="viewport" content="width=device-width, initial-scale=1">
-	<title>ManoLingo - Aprende LSM</title>
-	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>ManoLingo - Aprende LSM</title>
+
+  <!-- Bootstrap 5.3.5 -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.5/dist/css/bootstrap.min.css" rel="stylesheet">
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.5/dist/js/bootstrap.bundle.min.js"></script>
+
+  <!-- Bootstrap Icons -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
 </head>
 <body>
-    <!--Panel de la izquierda "SideNav"-->
-    <div class="sidenav">
-        <a href="#">About</a>
-        <a href="#">Services</a>
-        <a href="#">Clients</a>
-        <a href="#">Contact</a>
-      </div>
-    <!--Codigo de la pagina principal-->
-    <div class="main">
-        ...
+  <div class="d-flex">
+    <!-- Sidebar -->
+    <div class="d-flex flex-column flex-shrink-0 p-3 text-bg-dark" style="width: 250px; height: 100vh;">
+      <a href="#" class="d-flex align-items-center mb-3 mb-md-0 me-md-auto text-white text-decoration-none">
+        <span class="fs-4">ManoLingo</span>
+      </a>
+      <hr>
+      <ul class="nav nav-pills flex-column mb-auto">
+        <li class="nav-item">
+          <a href="#" class="nav-link active text-white" aria-current="page">
+            <i class="bi bi-house me-2"></i> Inicio
+          </a>
+        </li>
+        <li>
+          <a href="#" class="nav-link text-white">
+            <i class="bi bi-speedometer2 me-2"></i> Dashboard
+          </a>
+        </li>
+        <li>
+          <a href="#" class="nav-link text-white">
+            <i class="bi bi-table me-2"></i> Pedidos
+          </a>
+        </li>
+        <li>
+          <a href="#" class="nav-link text-white">
+            <i class="bi bi-grid me-2"></i> Productos
+          </a>
+        </li>
+        <li>
+          <a href="#" class="nav-link text-white">
+            <i class="bi bi-people me-2"></i> Usuarios
+          </a>
+        </li>
+        <li>
+            <div class="dropdown">
+                <a href="#" class="d-flex align-items-center text-white text-decoration-none dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
+                  <strong>Mas</strong>
+                </a>
+                <ul class="dropdown-menu dropdown-menu-dark text-small shadow">
+                  <li><a class="dropdown-item" href="#">Nuevo proyecto...</a></li>
+                  <li><a class="dropdown-item" href="#">Configuración</a></li>
+                  <li><a class="dropdown-item" href="#">Perfil</a></li>
+                  <li><hr class="dropdown-divider"></li>
+                  <li><a class="dropdown-item" href="#">Cerrar sesión</a></li>
+                </ul>
+              </div>
+        </li>
+      </ul>
+      <hr>
+      
     </div>
-    <!--Estilo del panel de la izquierda-->
-    <style>
-        .sidenav {
-        height: 100%; /* Full-height: remove this if you want "auto" height */
-        width: 230px; /* Set the width of the sidebar */
-        position: fixed; /* Fixed Sidebar (stay in place on scroll) */
-        z-index: 1; /* Stay on top */
-        top: 0; /* Stay at the top */
-        left: 0;
-        background-color: #1B5FB7; /* Black */
-        overflow-x: hidden; /* Disable horizontal scroll */
-        padding-top: 20px;
-        }
 
-        /* The navigation menu links */
-        .sidenav a {
-        padding: 6px 8px 6px 16px;
-        text-decoration: none;
-        font-size: 24px;
-        color: #ffffff;
-        display: block;
-        }
-
-        /* When you mouse over the navigation links, change their color */
-        .sidenav a:hover {
-        color: #f1f1f1;
-        }
-
-        /* Style page content */
-        .main {
-        margin-left: 160px; /* Same as the width of the sidebar */
-        padding: 0px 10px;
-        }
-
-        /* On smaller screens, where height is less than 450px, change the style of the sidebar (less padding and a smaller font size) */
-        @media screen and (max-height: 450px) {
-        .sidenav {padding-top: 15px;}
-        .sidenav a {font-size: 18px;}
-        }
-    </style>
+    <!-- Main content -->
+    <div class="p-4">
+      <h1>Bienvenido a ManoLingo</h1>
+      <p>Contenido principal aquí.</p>
+    </div>
+  </div>
 </body>
 </html>
