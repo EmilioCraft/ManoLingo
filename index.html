@@ -8,7 +8,7 @@
 </head>
 <body>
 	<div class="contenedor_imagen">
-		<video class="imagen_inicio" src="./Assets/0423 (1).mov" autoplay muted loop playsinline></video>
+		<img class="imagen_inicio" src="./Assets/MANU-SALUDANDO-TRANSPARENTE.gif"></img>
 	</div>
 
 	<div class="contenedor_boton">
@@ -36,25 +36,27 @@
 	height: auto;
 	}
 	.button {
-	padding: 15px 25px;
+	padding: 15px 30px;
 	font-size: 24px;
 	text-align: center;
 	cursor: pointer;
 	outline: none;
 	color: #fff;
-	background-color: #266ced;
+	background: linear-gradient(90deg, #266ced, #2985ff);
 	border: none;
-	border-radius: 15px;
-	box-shadow: 0 5px #2985ff;
+	border-radius: 25px;
+	box-shadow: 0 8px rgba(0, 0, 0, 0.2);
+	transition: all 0.3s ease;
 	}
 	.button:hover {
-		background-color: #2985ff;
+		background: linear-gradient(90deg, #2985ff, #266ced);
+		transform: scale(1.05);
+		box-shadow: 0 12px rgba(0, 0, 0, 0.3);
 	}
 	.button:active {
-	background-color: #266ced;
-	box-shadow: 0 5px #2985ff;
-	transform: translateY(4px);
+		background: linear-gradient(90deg, #1e5bbf, #1f6edc);
+		box-shadow: 0 5px rgba(0, 0, 0, 0.2);
+		transform: translateY(4px);
 	}
 </style>
 </html>
-

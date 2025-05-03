@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Vocal-A Homepage</title>
+    <title>Vocal A - ManoLingo</title>
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -12,70 +12,115 @@
             background-color: #f4f4f9;
             color: #333;
         }
-        header {
-            background-color: #6200ea;
+
+        .container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            text-align: center;
+            position: relative;
+        }
+
+        .seccion-mono {
+            position: absolute;
+            top: 30%;
+            left: 10%;
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+        }
+
+        .seccion-mono img {
+            width: 600px; /* Ajusta el tamaño del mono */
+            height: auto;
+        }
+
+        .dialogo {
+            position: absolute;
+            top: 10%;
+            left: 50%; /* Posiciona el texto a la derecha de la imagen */
+            background-color: #fff;
+            padding: 1rem;
+            border-radius: 10px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            font-size: 1rem;
+            color: #333;
+            max-width: 200px;
+        }
+
+        .center-image {
+            width: 300px; /* Ajusta el tamaño de la imagen de la seña */
+            height: auto;
+            margin-bottom: 2rem;
+        }
+
+        button {
+            background-color: #266ced;
             color: white;
-            padding: 1rem 2rem;
-            text-align: center;
+            border: none;
+            padding: 1.5rem 3rem; /* Aumenta el tamaño del botón */
+            font-size: 1.5rem; /* Incrementa el tamaño del texto */
+            cursor: pointer;
+            border-radius: 50px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            transition: transform 0.2s, background-color 0.3s;
+            position: absolute;
+            bottom: 10%; /* Posiciona el botón hacia el centro inferior */
         }
-        nav {
-            margin: 1rem 0;
-            text-align: center;
+
+        button:hover {
+            background-color: #3e82ff;
+            transform: scale(1.05);
         }
-        nav a {
-            margin: 0 1rem;
-            text-decoration: none;
-            color: #6200ea;
-            font-weight: bold;
+
+        .hidden {
+            display: none;
         }
-        nav a:hover {
-            text-decoration: underline;
-        }
-        main {
-            padding: 2rem;
-            text-align: center;
-        }
-        footer {
-            background-color: #6200ea;
-            color: white;
-            text-align: center;
-            padding: 1rem 0;
-            position: fixed;
-            bottom: 0;
-            width: 100%;
+
+        .texto-letra {
+            position: absolute;
+            top: -300px; /* Ajusta la posición vertical del texto */
+            left: 50%;
+            transform: translateX(-50%);
+            font-size: 15rem; /* Tamaño de la letra */
+            font-weight: bold; /* Hace el texto bold */
+            color: #266ced; /* Cambia el color del texto */
+            font-family: "Arial", sans-serif; /* Cambia la fuente si es necesario */
         }
     </style>
 </head>
 <body>
-    <header>
-        <h1>Welcome to Vocal-A</h1>
-        <p>Your ultimate language learning companion</p>
-    </header>
-    <nav>
-        <a href="#about">About</a>
-        <a href="#features">Features</a>
-        <a href="#contact">Contact</a>
-    </nav>
-    <main>
-        <section id="about">
-            <h2>About Us</h2>
-            <p>Vocal-A is designed to make language learning fun and effective for everyone.</p>
-        </section>
-        <section id="features">
-            <h2>Features</h2>
-            <ul>
-                <li>Interactive lessons</li>
-                <li>Vocabulary building</li>
-                <li>Pronunciation practice</li>
-            </ul>
-        </section>
-        <section id="contact">
-            <h2>Contact Us</h2>
-            <p>Email: support@vocal-a.com</p>
-        </section>
-    </main>
-    <footer>
-        <p>&copy; 2023 Vocal-A. All rights reserved.</p>
-    </footer>
+    <div id="contenido-inicial" class="container">
+        <!-- Sección del mono -->
+        <div class="seccion-mono">
+            <img src="./Assets/manu-hola.png" alt="Monkey">
+            <div class="dialogo">
+                ¡Hola! Esta es la forma en la que se hace la letra A en LSM. 
+            </div>
+        </div>
+
+        <!-- Imagen y letra arriba -->
+        <div class="center-image-container" style="position: relative;">
+            <div class="texto-letra">A</div>
+            <img src="./Assets/A-Sena.png" alt="Hand sign for A" class="center-image">
+        </div>
+
+        <!-- Botón -->
+        <button onclick="showNewContent()">Entendido</button>
+    </div>
+
+    <div id="nuevo-contenido" class="container hidden">
+        <h1>¡Bien hecho!</h1>
+        <p>Ahora estás listo para aprender más letras.</p>
+    </div>
+
+    <script>
+        function showNewContent() {
+            document.getElementById('contenido-inicial').classList.add('hidden');
+            document.getElementById('nuevo-contenido').classList.remove('hidden');
+        }
+    </script>
 </body>
 </html>
