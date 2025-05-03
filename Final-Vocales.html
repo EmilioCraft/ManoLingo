@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Final Vocales - ManoLingo</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f9;
+            color: #333;
+        }
+
+        .container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            text-align: center;
+            position: relative;
+        }
+
+        .seccion-mono {
+            position: absolute;
+            top: 15%;
+            left: 35%;
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+        }
+
+        .seccion-mono img {
+            width: 400px; /* Ajusta el tamaño del mono */
+            height: auto;
+        }
+
+        .dialogo {
+            position: absolute;
+            top: 5%;
+            left: -60%; /* Posiciona el texto a la derecha de la imagen */
+            background-color: #fff;
+            padding: 1rem;
+            border-radius: 10px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            font-size: 1.5rem;
+            color: #333;
+            max-width: 200px;
+        }
+
+        .descripcion {
+            position: relative;
+            top: -30%;
+            left: 110%; /* Posiciona el texto a la derecha de la imagen */
+            background-color: #fff;
+            padding: 1rem;
+            border-radius: 10px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            font-size: 1rem;
+            color: #333;
+            max-width: 300px;
+        }
+
+        .center-image {
+            width: 300px; /* Ajusta el tamaño de la imagen de la seña */
+            height: auto;
+            margin-bottom: -3rem;
+        }
+
+        button {
+            background-color: #266ced;
+            color: white;
+            border: none;
+            padding: 1.5rem 3rem; /* Aumenta el tamaño del botón */
+            font-size: 1.5rem; /* Incrementa el tamaño del texto */
+            cursor: pointer;
+            border-radius: 50px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            transition: transform 0.2s, background-color 0.3s;
+            position: absolute;
+            bottom: 10%; /* Posiciona el botón hacia el centro inferior */
+        }
+
+        button:hover {
+            background-color: #3e82ff;
+            transform: scale(1.05);
+        }
+
+        .hidden {
+            display: none;
+        }
+
+        .texto-letra {
+            position: absolute;
+            top: -260px; /* Ajusta la posición vertical del texto */
+            left: 50%;
+            transform: translateX(-50%);
+            font-size: 13rem; /* Tamaño de la letra */
+            font-weight: bold; /* Hace el texto bold */
+            color: #266ced; /* Cambia el color del texto */
+            font-family: "Arial", sans-serif; /* Cambia la fuente si es necesario */
+        }
+    </style>
+</head>
+<body>
+    <div id="contenido-inicial" class="container">
+        <!-- Sección del mono -->
+        <div class="seccion-mono">
+            <img src="./Assets/manuchiquito-feliz.png" alt="Manu el mono">
+            <div class="dialogo">
+                Es hora de poner a prueba lo que aprendiste. ¡Vamos a jugar!
+            </div>
+        </div>
+
+        <!-- Botón -->
+        <button onclick="showNewContent()">Empezar</button>
+    </div>
+
+    <div id="nuevo-contenido" class="container hidden">
+        <h1>¡Bien hecho!</h1>
+        <p>Ahora estás listo para aprender más letras.</p>
+    </div>
+
+    <script>
+        function showNewContent() {
+            document.getElementById('contenido-inicial').classList.add('hidden');
+            document.getElementById('nuevo-contenido').classList.remove('hidden');
+        }
+    </script>
+</body>
+</html>
