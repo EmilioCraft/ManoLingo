@@ -34,3 +34,7 @@ function irAEjercicios() {
   document.getElementById("seccion-camara").classList.add("hidden");
   document.getElementById("seccion-ejercicios").classList.remove("hidden");
 }
+
+function guardarProgreso(vocal) {
+  document.cookie = `vocal_${vocal}_completado=true; path=/; max-age=3600`; // dura 1 año
+}
