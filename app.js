@@ -1,5 +1,7 @@
-import { GestureRecognizer, FilesetResolver }
-  from "https://cdn.jsdelivr.net/npm/@mediapipe/tasks-vision@0.10.3";
+import {
+  GestureRecognizer,
+  FilesetResolver,
+} from "https://cdn.jsdelivr.net/npm/@mediapipe/tasks-vision@0.10.3";
 
 let gestureRecognizer;
 let videoElement;
@@ -27,14 +29,14 @@ async function iniciarReconocedor() {
     baseOptions: {
       modelAssetPath: "./Modelos/ModeloVocales.task",
     },
-    runningMode: "VIDEO"
+    runningMode: "VIDEO",
   });
 
   console.log("✅ Modelo cargado y listo");
 }
 
 const seccionCamara = document.getElementById("seccion-camara");
-const vocalEsperada = seccionCamara.dataset.vocal; 
+const vocalEsperada = seccionCamara.dataset.vocal;
 
 async function detectar() {
   if (!gestureRecognizer || aYaReconocida) return;
@@ -44,6 +46,8 @@ async function detectar() {
     performance.now()
   );
 
+  const webcam = document.getElementById("webcam");
+
   if (prediction && prediction.gestures.length > 0) {
     const vocalDetectada = prediction.gestures[0][0].categoryName;
 
@@ -51,20 +55,23 @@ async function detectar() {
       resultadoSpan.textContent = `¡${vocalEsperada} reconocida!`;
       aYaReconocida = true;
       botonContinuar.disabled = false;
+      webcam.classList.add("camara-reconocida"); // cambia a verde
       return;
+    } else {
+      webcam.classList.remove("camara-reconocida"); // sigue en rojo
     }
   } else {
     resultadoSpan.textContent = "Esperando...";
+    webcam.classList.remove("camara-reconocida"); // sigue en rojo
   }
 
   requestAnimationFrame(detectar);
 }
 
-
 export async function iniciarReconocimiento() {
-  videoElement = document.getElementById('webcam');
-  resultadoSpan = document.getElementById('resultado');
-  botonContinuar = document.getElementById('btn-continuar');
+  videoElement = document.getElementById("webcam");
+  resultadoSpan = document.getElementById("resultado");
+  botonContinuar = document.getElementById("btn-continuar");
 
   await iniciarCamara();
   await iniciarReconocedor();

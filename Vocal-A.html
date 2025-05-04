@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -48,7 +49,8 @@
 
         .seccion-camara-mono img {
             width: 600px;
-            height: auto;;
+            height: auto;
+            ;
         }
 
         .dialogo {
@@ -63,6 +65,7 @@
             color: #333;
             max-width: 200px;
         }
+
         .dialogo-cam {
             position: absolute;
             top: -20%;
@@ -137,6 +140,7 @@
             font-weight: bold;
             color: #266ced;
         }
+
         .texto-resultado {
             position: absolute;
             top: 72%;
@@ -146,22 +150,26 @@
             font-weight: bold;
             color: #266ced;
         }
+
         button:disabled {
-        background-color: #cccccc;
-        color: #888888;
-        cursor: not-allowed;
-        box-shadow: none;
-        transform: none;
+            background-color: #cccccc;
+            color: #888888;
+            cursor: not-allowed;
+            box-shadow: none;
+            transform: none;
         }
+
         .seleccion-ejercicio img {
-        cursor: pointer;
-        transition: transform 0.3s, box-shadow 0.3s;
-        border-radius: 20px;
+            cursor: pointer;
+            transition: transform 0.3s, box-shadow 0.3s;
+            border-radius: 20px;
         }
+
         .seleccion-ejercicio img:hover {
             transform: scale(1.1);
-            box-shadow: 0 8px 16px rgba(0,0,0,0.2);
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
         }
+
         .texto-felicidades {
             position: absolute;
             top: 10%;
@@ -171,6 +179,7 @@
             font-weight: bold;
             color: #266ced;
         }
+
         .texto-felicidades-mensaje {
             position: absolute;
             top: 60%;
@@ -183,13 +192,14 @@
         }
     </style>
 </head>
+
 <body>
     <!-- SECCIÓN 1: INTRO -->
     <div id="seccion-intro" class="container">
         <div class="seccion-mono">
             <img src="./Assets/manu-hola.png" alt="Manu el mono">
             <div class="dialogo">
-                ¡Hola! Esta es la forma en la que se hace la letra A en LSM.
+                ¡Hola! Esta es la forma en la que se hace la vocal A en LSM.
             </div>
         </div>
 
@@ -198,7 +208,8 @@
             <div class="texto-letra">A</div>
             <img src="./Assets/A-Sena.png" alt="Seña de A" class="center-image">
             <div class="descripcion">
-                Con la mano cerrada, se muestran las uñas y se estira el dedo pulgar hacia un lado. La palma mira al frente.
+                Con la mano cerrada, se muestran las uñas y se estira el dedo pulgar hacia un lado. La palma mira al
+                frente.
             </div>
         </div>
 
@@ -248,16 +259,16 @@
 
             const mensaje = document.getElementById('mensaje-ejercicio');
             if (correcta) {
-            yaSeleccionado = true;
-            mensaje.textContent = '¡Correcto! 🎉';
-            mensaje.style.color = 'green';
-            setTimeout(() => {
-                document.getElementById('seccion-ejercicios').classList.add('hidden');
-                document.getElementById('seccion-felicitaciones').classList.remove('hidden');
-            }, 1500);
+                yaSeleccionado = true;
+                mensaje.textContent = '¡Correcto! 🎉';
+                mensaje.style.color = 'green';
+                setTimeout(() => {
+                    document.getElementById('seccion-ejercicios').classList.add('hidden');
+                    document.getElementById('seccion-felicitaciones').classList.remove('hidden');
+                }, 1500);
             } else {
-            mensaje.textContent = 'Incorrecto 😅. Sigue intentando.';
-            mensaje.style.color = 'red';
+                mensaje.textContent = 'Incorrecto 😅. Sigue intentando.';
+                mensaje.style.color = 'red';
             }
         }
 
@@ -277,4 +288,5 @@
         }
     </script>
 </body>
+
 </html>
