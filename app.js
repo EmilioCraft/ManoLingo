@@ -4,6 +4,8 @@ import { GestureRecognizer, FilesetResolver }
 let gestureRecognizer;
 let videoElement;
 let resultadoSpan;
+let botonContinuar;
+let aYaReconocida = false;
 
 async function iniciarCamara() {
   const constraints = { video: true, audio: false };
@@ -32,7 +34,7 @@ async function iniciarReconocedor() {
 }
 
 async function detectar() {
-  if (!gestureRecognizer) return;
+  if (!gestureRecognizer || aYaReconocida) return;
 
   const prediction = await gestureRecognizer.recognizeForVideo(
     videoElement,
@@ -41,8 +43,13 @@ async function detectar() {
 
   if (prediction && prediction.gestures.length > 0) {
     const vocalDetectada = prediction.gestures[0][0].categoryName;
-    resultadoSpan.textContent = vocalDetectada;
-    console.log("🔠 Vocal detectada:", vocalDetectada);
+
+    if (vocalDetectada === "A") {
+      resultadoSpan.textContent = "¡A reconocida!";
+      aYaReconocida = true;
+      botonContinuar.disabled = false;
+      return; // Ya no seguir detectando
+    }
   } else {
     resultadoSpan.textContent = "Esperando...";
   }
@@ -50,10 +57,10 @@ async function detectar() {
   requestAnimationFrame(detectar);
 }
 
-// 👇 Esta es la función que se llamará desde el HTML
 export async function iniciarReconocimiento() {
   videoElement = document.getElementById('webcam');
   resultadoSpan = document.getElementById('resultado');
+  botonContinuar = document.getElementById('btn-continuar');
 
   await iniciarCamara();
   await iniciarReconocedor();
