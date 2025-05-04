@@ -33,14 +33,40 @@
         }
 
         .seccion-mono img {
-            width: 600px; /* Ajusta el tamaño del mono */
+            width: 600px;
             height: auto;
+        }
+
+        .seccion-camara-mono {
+            position: absolute;
+            top: 30%;
+            left: -5%;
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+        }
+
+        .seccion-camara-mono img {
+            width: 600px;
+            height: auto;;
         }
 
         .dialogo {
             position: absolute;
-            top: 10%;
-            left: 45%; /* Posiciona el texto a la derecha de la imagen */
+            top: 20%;
+            left: 45%;
+            background-color: #fff;
+            padding: 1rem;
+            border-radius: 10px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            font-size: 1rem;
+            color: #333;
+            max-width: 200px;
+        }
+        .dialogo-cam {
+            position: absolute;
+            top: -20%;
+            left: 45%;
             background-color: #fff;
             padding: 1rem;
             border-radius: 10px;
@@ -53,7 +79,7 @@
         .descripcion {
             position: relative;
             top: -30%;
-            left: 110%; /* Posiciona el texto a la derecha de la imagen */
+            left: 110%;
             background-color: #fff;
             padding: 1rem;
             border-radius: 10px;
@@ -64,7 +90,7 @@
         }
 
         .center-image {
-            width: 300px; /* Ajusta el tamaño de la imagen de la seña */
+            width: 300px;
             height: auto;
             margin-bottom: -3rem;
         }
@@ -73,14 +99,14 @@
             background-color: #266ced;
             color: white;
             border: none;
-            padding: 1.5rem 3rem; /* Aumenta el tamaño del botón */
-            font-size: 1.5rem; /* Incrementa el tamaño del texto */
+            padding: 1.5rem 3rem;
+            font-size: 1.5rem;
             cursor: pointer;
             border-radius: 50px;
             box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
             transition: transform 0.2s, background-color 0.3s;
             position: absolute;
-            bottom: 10%; /* Posiciona el botón hacia el centro inferior */
+            bottom: 10%;
         }
 
         button:hover {
@@ -94,23 +120,41 @@
 
         .texto-letra {
             position: absolute;
-            top: -260px; /* Ajusta la posición vertical del texto */
+            top: -260px;
             left: 50%;
             transform: translateX(-50%);
-            font-size: 13rem; /* Tamaño de la letra */
-            font-weight: bold; /* Hace el texto bold */
-            color: #266ced; /* Cambia el color del texto */
-            font-family: "Arial", sans-serif; /* Cambia la fuente si es necesario */
+            font-size: 13rem;
+            font-weight: bold;
+            color: #266ced;
+        }
+
+        .textocam {
+            position: absolute;
+            top: 10%;
+            left: 50%;
+            transform: translateX(-50%);
+            font-size: 3rem;
+            font-weight: bold;
+            color: #266ced;
+        }
+        .texto-resultado {
+            position: absolute;
+            top: 72%;
+            left: 50%;
+            transform: translateX(-50%);
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: #266ced;
         }
     </style>
 </head>
 <body>
-    <div id="contenido-inicial" class="container">
-        <!-- Sección del mono -->
+    <!-- SECCIÓN 1: INTRO -->
+    <div id="seccion-intro" class="container">
         <div class="seccion-mono">
             <img src="./Assets/manu-hola.png" alt="Manu el mono">
             <div class="dialogo">
-                ¡Hola! Esta es la forma en la que se hace la letra A en LSM. 
+                ¡Hola! Esta es la forma en la que se hace la letra A en LSM.
             </div>
         </div>
 
@@ -123,19 +167,57 @@
             </div>
         </div>
 
-        <!-- Botón -->
-        <button onclick="showNewContent()">Entendido</button>
+        <button onclick="irACamara()">Entendido</button>
     </div>
 
-    <div id="nuevo-contenido" class="container hidden">
-        <h1>¡Bien hecho!</h1>
-        <p>Ahora estás listo para aprender más letras.</p>
+    <!-- SECCIÓN 2: CÁMARA -->
+    <div id="seccion-camara" class="container hidden">
+        <h1 class="textocam">Reconocimiento de la vocal A</h1>
+        <div>
+            <div class="seccion-camara-mono">
+                <img src="./Assets/manu-emocionado.png" alt="Manu el mono">
+                <div class="dialogo-cam">
+                    ¡Ahora intenta hacer la vocal A!
+                </div>
+            </div>
+            <video id="webcam" autoplay playsinline width="480" height="360"></video>
+        </div>
+        <p class="texto-resultado">Resultado: <span id="resultado">Esperando...</span></p>
+        <button onclick="irAEjercicios()">Continuar</button>
+    </div>
+
+    <!-- SECCIÓN 3: EJERCICIOS -->
+    <div id="seccion-ejercicios" class="container hidden">
+        <h1>Ejercicio</h1>
+        <p>Selecciona la seña correcta para la vocal A:</p>
+        <div style="display: flex; gap: 2rem;">
+            <img src="./Assets/A-Sena.png" alt="A" width="150" onclick="validarRespuesta(true)">
+            <img src="./Assets/E-Sena.png" alt="E" width="150" onclick="validarRespuesta(false)">
+        </div>
     </div>
 
     <script>
-        function showNewContent() {
-            document.getElementById('contenido-inicial').classList.add('hidden');
-            document.getElementById('nuevo-contenido').classList.remove('hidden');
+        async function irACamara() {
+            document.getElementById('seccion-intro').classList.add('hidden');
+            document.getElementById('seccion-camara').classList.remove('hidden');
+
+            await new Promise(r => setTimeout(r, 100));
+
+            const modulo = await import('./app.js');
+            modulo.iniciarReconocimiento(); // Asegúrate que esta función esté exportada en app.js
+        }
+
+        function irAEjercicios() {
+            document.getElementById('seccion-camara').classList.add('hidden');
+            document.getElementById('seccion-ejercicios').classList.remove('hidden');
+        }
+
+        function validarRespuesta(correcta) {
+            if (correcta) {
+                alert('¡Correcto! 🎉');
+            } else {
+                alert('Intenta de nuevo 😅');
+            }
         }
     </script>
 </body>
