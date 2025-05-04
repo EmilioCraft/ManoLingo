@@ -153,6 +153,15 @@
         box-shadow: none;
         transform: none;
         }
+        .seleccion-ejercicio img {
+        cursor: pointer;
+        transition: transform 0.3s, box-shadow 0.3s;
+        border-radius: 20px;
+        }
+        .seleccion-ejercicio img:hover {
+            transform: scale(1.1);
+            box-shadow: 0 8px 16px rgba(0,0,0,0.2);
+        }
     </style>
 </head>
 <body>
@@ -197,13 +206,40 @@
     <div id="seccion-ejercicios" class="container hidden">
         <h1>Ejercicio</h1>
         <p>Selecciona la seña correcta para la vocal A:</p>
-        <div style="display: flex; gap: 2rem;">
-            <img src="./Assets/A-Sena.png" alt="A" width="150" onclick="validarRespuesta(true)">
-            <img src="./Assets/E-Sena.png" alt="E" width="150" onclick="validarRespuesta(false)">
+        <div class="seleccion-ejercicio" style="display: flex; gap: 2rem;">
+            <img src="./Assets/A-Sena.png" alt="A" width="150" onclick="validarRespuesta(true, this)">
+            <img src="./Assets/E-Sena.png" alt="E" width="150" onclick="validarRespuesta(false, this)">
         </div>
+        <p id="mensaje-ejercicio" class="texto-resultado"></p>
+    </div>
+
+    <!-- SECCIÓN 4: FELICITACIONES -->
+    <div id="seccion-felicitaciones" class="container hidden">
+        <h1>🎉 ¡Felicidades!</h1>
+        <p>¡Lo lograste! Ahora puedes seguir aprendiendo las demás vocales.</p>
+        <button onclick="window.location.href='inicio.html'">Volver al inicio</button>
     </div>
 
     <script>
+        let yaSeleccionado = false;
+
+        function validarRespuesta(correcta, elemento) {
+            if (yaSeleccionado) return;
+            yaSeleccionado = true;
+
+            const mensaje = document.getElementById('mensaje-ejercicio');
+            if (correcta) {
+                mensaje.textContent = '¡Correcto! 🎉';
+                mensaje.style.color = 'green';
+                setTimeout(() => {
+                    document.getElementById('seccion-ejercicios').classList.add('hidden');
+                    document.getElementById('seccion-felicitaciones').classList.remove('hidden');
+                }, 1500);
+          } else {
+                mensaje.textContent = 'Incorrecto 😅. Sigue intentando.';
+                mensaje.style.color = 'red';
+            }
+        }
         async function irACamara() {
             document.getElementById('seccion-intro').classList.add('hidden');
             document.getElementById('seccion-camara').classList.remove('hidden');
@@ -217,14 +253,6 @@
         function irAEjercicios() {
             document.getElementById('seccion-camara').classList.add('hidden');
             document.getElementById('seccion-ejercicios').classList.remove('hidden');
-        }
-
-        function validarRespuesta(correcta) {
-            if (correcta) {
-                alert('¡Correcto! 🎉');
-            } else {
-                alert('Intenta de nuevo 😅');
-            }
         }
     </script>
 </body>
