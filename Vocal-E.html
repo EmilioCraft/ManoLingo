@@ -102,10 +102,88 @@
             color: #266ced; /* Cambia el color del texto */
             font-family: "Arial", sans-serif; /* Cambia la fuente si es necesario */
         }
+        .textocam {
+            position: absolute;
+            top: 10%;
+            left: 50%;
+            transform: translateX(-50%);
+            font-size: 3rem;
+            font-weight: bold;
+            color: #266ced;
+        }
+        .texto-resultado {
+            position: absolute;
+            top: 72%;
+            left: 50%;
+            transform: translateX(-50%);
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: #266ced;
+        }
+        button:disabled {
+        background-color: #cccccc;
+        color: #888888;
+        cursor: not-allowed;
+        box-shadow: none;
+        transform: none;
+        }
+        .seleccion-ejercicio img {
+        cursor: pointer;
+        transition: transform 0.3s, box-shadow 0.3s;
+        border-radius: 20px;
+        }
+        .seleccion-ejercicio img:hover {
+            transform: scale(1.1);
+            box-shadow: 0 8px 16px rgba(0,0,0,0.2);
+        }
+        .texto-felicidades {
+            position: absolute;
+            top: 10%;
+            left: 50%;
+            transform: translateX(-50%);
+            font-size: 3rem;
+            font-weight: bold;
+            color: #266ced;
+        }
+        .texto-felicidades-mensaje {
+            position: absolute;
+            top: 60%;
+            left: 50%;
+            transform: translateX(-50%);
+            font-size: 1.5rem;
+            color: #266ced;
+            max-width: 600px;
+            text-align: center;
+        }
+        .seccion-camara-mono {
+            position: absolute;
+            top: 30%;
+            left: 5%;
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+        }
+        .seccion-camara-mono img {
+            width: 600px;
+            height: auto;;
+        }
+        .dialogo-cam {
+            position: absolute;
+            top: -15%;
+            left: 35%;
+            background-color: #fff;
+            padding: 1rem;
+            border-radius: 10px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            font-size: 1rem;
+            color: #333;
+            max-width: 200px;
+        }
     </style>
 </head>
 <body>
-    <div id="contenido-inicial" class="container">
+    <!-- SECCION 1: INTRO -->
+    <div id="seccion-intro" class="container">
         <!-- Sección del mono -->
         <div class="seccion-mono">
             <img src="./Assets/manu-estrella.png" alt="Manu el mono">
@@ -124,18 +202,75 @@
         </div>
 
         <!-- Botón -->
-        <button onclick="showNewContent()">Entendido</button>
+        <button onclick="irACamara()">Entendido</button>
+    </div>
+    <!-- SECCION 2: CAMARA -->
+    <div id="seccion-camara" class="container hidden" data-vocal="E">
+        <h1 class="textocam">Reconocimiento de la vocal E</h1>
+        <div>
+            <div class="seccion-camara-mono">
+                <img src="./Assets/manu-holaconojoscerrados.png" alt="Manu el mono">
+                <div class="dialogo-cam">
+                    intenta hacer la letra E.   <br> ¡Recuerda que la palma debe mirar al frente!
+                </div>
+            </div>
+            <video id="webcam" autoplay playsinline width="480" height="360"></video>
+        </div>
+        <p class="texto-resultado">Resultado: <span id="resultado">Esperando...</span></p>
+        <button id="btn-continuar" onclick="irAEjercicios()" disabled>Continuar</button>
+    </div>
+    <!-- SECCION 3: EJERCICIO -->
+    <div id="seccion-ejercicios" class="container hidden">
+        <h1 class="texto-felicidades">Ejercicio</h1>
+        <p class="texto-felicidades-mensaje"> Selecciona la seña correcta para la vocal E:</p>
+        <div class="seleccion-ejercicio" style="display: flex; gap: 2rem;">
+            <img src="./Assets/I-Sena.png" alt="A" width="150" onclick="validarRespuesta(false, this)">
+            <img src="./Assets/E-Sena.png" alt="E" width="150" onclick="validarRespuesta(true, this)">
+            <img src="./Assets/A-Sena.png" alt="E" width="150" onclick="validarRespuesta(false, this)">
+        </div>
+        <p id="mensaje-ejercicio" class="texto-resultado"></p>
     </div>
 
-    <div id="nuevo-contenido" class="container hidden">
-        <h1>¡Bien hecho!</h1>
-        <p>Ahora estás listo para aprender más letras.</p>
+    <!-- SECCIÓN 4: FELICITACIONES -->
+    <div id="seccion-felicitaciones" class="container hidden">
+        <h1 class="texto-felicidades">🎉 ¡Felicidades!</h1>
+        <img src="./Assets/manu-emocionado.png" alt="Manu feliz" width="400" style="margin-bottom: 10%;">
+        <p class="texto-felicidades-mensaje">!Lo hiciste muy bien!, Puedes continuar con la siguiente vocal.</p>
+        <button onclick="window.location.href='inicio.html'">Volver al inicio</button>
     </div>
 
     <script>
-        function showNewContent() {
-            document.getElementById('contenido-inicial').classList.add('hidden');
-            document.getElementById('nuevo-contenido').classList.remove('hidden');
+       let yaSeleccionado = false;
+
+        function validarRespuesta(correcta, elemento) {
+            if (yaSeleccionado && correcta) return;
+
+            const mensaje = document.getElementById('mensaje-ejercicio');
+            if (correcta) {
+            yaSeleccionado = true;
+            mensaje.textContent = '¡Correcto! 🎉';
+            mensaje.style.color = 'green';
+            setTimeout(() => {
+                document.getElementById('seccion-ejercicios').classList.add('hidden');
+                document.getElementById('seccion-felicitaciones').classList.remove('hidden');
+            }, 1500);
+            } else {
+            mensaje.textContent = 'Incorrecto 😅. Sigue intentando.';
+            mensaje.style.color = 'red';
+            }
+        }
+        async function irACamara() {
+            document.getElementById('seccion-intro').classList.add('hidden');
+            document.getElementById('seccion-camara').classList.remove('hidden');
+
+            await new Promise(r => setTimeout(r, 100));
+
+            const modulo = await import('./app.js');
+            modulo.iniciarReconocimiento(); // Asegúrate que esta función esté exportada en app.js
+        }
+        function irAEjercicios() {
+            document.getElementById('seccion-camara').classList.add('hidden');
+            document.getElementById('seccion-ejercicios').classList.remove('hidden');
         }
     </script>
 </body>

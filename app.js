@@ -33,6 +33,9 @@ async function iniciarReconocedor() {
   console.log("✅ Modelo cargado y listo");
 }
 
+const seccionCamara = document.getElementById("seccion-camara");
+const vocalEsperada = seccionCamara.dataset.vocal; 
+
 async function detectar() {
   if (!gestureRecognizer || aYaReconocida) return;
 
@@ -44,11 +47,11 @@ async function detectar() {
   if (prediction && prediction.gestures.length > 0) {
     const vocalDetectada = prediction.gestures[0][0].categoryName;
 
-    if (vocalDetectada === "A") {
-      resultadoSpan.textContent = "¡A reconocida!";
+    if (vocalDetectada === vocalEsperada) {
+      resultadoSpan.textContent = `¡${vocalEsperada} reconocida!`;
       aYaReconocida = true;
       botonContinuar.disabled = false;
-      return; // Ya no seguir detectando
+      return;
     }
   } else {
     resultadoSpan.textContent = "Esperando...";
@@ -56,6 +59,7 @@ async function detectar() {
 
   requestAnimationFrame(detectar);
 }
+
 
 export async function iniciarReconocimiento() {
   videoElement = document.getElementById('webcam');
