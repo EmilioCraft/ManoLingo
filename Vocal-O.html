@@ -5,203 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Vocal O - ManoLingo</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            margin: 0;
-            padding: 0;
-            background-color: #f4f4f9;
-            color: #333;
-        }
-
-        .container {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            height: 100vh;
-            text-align: center;
-            position: relative;
-        }
-
-        .seccion-mono {
-            position: absolute;
-            top: 30%;
-            left: 5%;
-            display: flex;
-            flex-direction: column;
-            align-items: flex-start;
-        }
-
-        .seccion-mono img {
-            width: 600px;
-            height: auto;
-        }
-
-        .seccion-camara-mono {
-            position: absolute;
-            top: 30%;
-            left: -5%;
-            display: flex;
-            flex-direction: column;
-            align-items: flex-start;
-        }
-
-        .seccion-camara-mono img {
-            width: 600px;
-            height: auto;
-            ;
-        }
-
-        .dialogo {
-            position: absolute;
-            top: 20%;
-            left: 45%;
-            background-color: #fff;
-            padding: 1rem;
-            border-radius: 10px;
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-            font-size: 1rem;
-            color: #333;
-            max-width: 200px;
-        }
-
-        .dialogo-cam {
-            position: absolute;
-            top: -20%;
-            left: 45%;
-            background-color: #fff;
-            padding: 1rem;
-            border-radius: 10px;
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-            font-size: 1rem;
-            color: #333;
-            max-width: 200px;
-        }
-
-        .descripcion {
-            position: relative;
-            top: -30%;
-            left: 110%;
-            background-color: #fff;
-            padding: 1rem;
-            border-radius: 10px;
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-            font-size: 1rem;
-            color: #333;
-            max-width: 300px;
-        }
-
-        .center-image {
-            width: 300px;
-            height: auto;
-            margin-bottom: -3rem;
-        }
-
-        button {
-            background-color: #266ced;
-            color: white;
-            border: none;
-            padding: 1.5rem 3rem;
-            font-size: 1.5rem;
-            cursor: pointer;
-            border-radius: 50px;
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-            transition: transform 0.2s, background-color 0.3s;
-            position: absolute;
-            bottom: 10%;
-        }
-
-        button:hover {
-            background-color: #3e82ff;
-            transform: scale(1.05);
-        }
-
-        .hidden {
-            display: none;
-        }
-
-        .texto-letra {
-            position: absolute;
-            top: -260px;
-            left: 50%;
-            transform: translateX(-50%);
-            font-size: 13rem;
-            font-weight: bold;
-            color: #266ced;
-        }
-
-        .textocam {
-            position: absolute;
-            top: 10%;
-            left: 50%;
-            transform: translateX(-50%);
-            font-size: 3rem;
-            font-weight: bold;
-            color: #266ced;
-        }
-
-        .texto-resultado {
-            position: absolute;
-            top: 72%;
-            left: 50%;
-            transform: translateX(-50%);
-            font-size: 1.5rem;
-            font-weight: bold;
-            color: #266ced;
-        }
-
-        button:disabled {
-            background-color: #cccccc;
-            color: #888888;
-            cursor: not-allowed;
-            box-shadow: none;
-            transform: none;
-        }
-
-        .seleccion-ejercicio img {
-            cursor: pointer;
-            transition: transform 0.3s, box-shadow 0.3s;
-            border-radius: 20px;
-        }
-
-        .seleccion-ejercicio img:hover {
-            transform: scale(1.1);
-            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
-        }
-
-        .texto-felicidades {
-            position: absolute;
-            top: 10%;
-            left: 50%;
-            transform: translateX(-50%);
-            font-size: 3rem;
-            font-weight: bold;
-            color: #266ced;
-        }
-
-        .texto-felicidades-mensaje {
-            position: absolute;
-            top: 60%;
-            left: 50%;
-            transform: translateX(-50%);
-            font-size: 1.5rem;
-            color: #266ced;
-            max-width: 600px;
-            text-align: center;
-        }
-
-        .camara-borde {
-            border: 10px solid red;
-            /* valor por defecto */
-            border-radius: 20px;
-            transition: border-color 0.3s ease;
-        }
-
-        .camara-reconocida {
-            border-color: green;
-        }
-    </style>
+    <link rel="stylesheet" href="./vocal-style.css" />
 </head>
 
 <body>
@@ -245,13 +49,13 @@
     <!-- SECCIÓN 3: EJERCICIOS -->
     <div id="seccion-ejercicios" class="container hidden">
         <h1 class="texto-felicidades">Ejercicio</h1>
-        <p class="texto-felicidades-mensaje"> Selecciona la seña correcta para la vocal A:</p>
+        <p class="texto-felicidades-mensaje"> Selecciona la seña correcta para la vocal O:</p>
         <div class="seleccion-ejercicio" style="display: flex; gap: 2rem;">
             <img src="./Assets/A-Sena.png" alt="A" width="150" onclick="validarRespuesta(false, this)">
             <img src="./Assets/U-Sena.png" alt="A" width="150" onclick="validarRespuesta(false, this)">
             <img src="./Assets/O-Sena.png" alt="E" width="150" onclick="validarRespuesta(true, this)">
-            <img src="./Assets/E-Sena.png" alt="E" width="150" onclick="validarRespuesta(true, this)">
-            <img src="./Assets/I-Sena.png" alt="E" width="150" onclick="validarRespuesta(true, this)">
+            <img src="./Assets/E-Sena.png" alt="E" width="150" onclick="validarRespuesta(false, this)">
+            <img src="./Assets/I-Sena.png" alt="E" width="150" onclick="validarRespuesta(false, this)">
         </div>
         <p id="mensaje-ejercicio" class="texto-resultado"></p>
     </div>
@@ -264,42 +68,7 @@
         <button onclick="window.location.href='inicio.html'">Volver al inicio</button>
     </div>
 
-    <script>
-        let yaSeleccionado = false;
-
-        function validarRespuesta(correcta, elemento) {
-            if (yaSeleccionado && correcta) return;
-
-            const mensaje = document.getElementById('mensaje-ejercicio');
-            if (correcta) {
-                yaSeleccionado = true;
-                mensaje.textContent = '¡Correcto! 🎉';
-                mensaje.style.color = 'green';
-                setTimeout(() => {
-                    document.getElementById('seccion-ejercicios').classList.add('hidden');
-                    document.getElementById('seccion-felicitaciones').classList.remove('hidden');
-                }, 1500);
-            } else {
-                mensaje.textContent = 'Incorrecto 😅. Sigue intentando.';
-                mensaje.style.color = 'red';
-            }
-        }
-
-        async function irACamara() {
-            document.getElementById('seccion-intro').classList.add('hidden');
-            document.getElementById('seccion-camara').classList.remove('hidden');
-
-            await new Promise(r => setTimeout(r, 100));
-
-            const modulo = await import('./app.js');
-            modulo.iniciarReconocimiento(); // Asegúrate que esta función esté exportada en app.js
-        }
-
-        function irAEjercicios() {
-            document.getElementById('seccion-camara').classList.add('hidden');
-            document.getElementById('seccion-ejercicios').classList.remove('hidden');
-        }
-    </script>
+    <script src="./funcion.js" />
 </body>
 
 </html>

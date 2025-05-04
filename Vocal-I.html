@@ -201,6 +201,17 @@
             color: #333;
             max-width: 200px;
         }
+
+        .camara-borde {
+            border: 10px solid red;
+            /* valor por defecto */
+            border-radius: 20px;
+            transition: border-color 0.3s ease;
+        }
+
+        .camara-reconocida {
+            border-color: green;
+        }
     </style>
 </head>
 
@@ -238,7 +249,7 @@
                     Intenta hacer la vocal I. <br> ¡Recuerda que la palma debe mirar al frente!
                 </div>
             </div>
-            <video id="webcam" autoplay playsinline width="480" height="360"></video>
+            <video id="webcam" class="camara-borde" autoplay playsinline width="480" height="360"></video>
         </div>
         <p class="texto-resultado">Resultado: <span id="resultado">Esperando...</span></p>
         <button id="btn-continuar" onclick="irAEjercicios()" disabled>Continuar</button>
@@ -252,6 +263,7 @@
             <img src="./Assets/I-Sena.png" alt="A" width="150" onclick="validarRespuesta(true, this)">
             <img src="./Assets/E-Sena.png" alt="E" width="150" onclick="validarRespuesta(false, this)">
             <img src="./Assets/A-Sena.png" alt="E" width="150" onclick="validarRespuesta(false, this)">
+            <img src="./Assets/U-Sena.png" alt="E" width="150" onclick="validarRespuesta(false, this)">
         </div>
         <p id="mensaje-ejercicio" class="texto-resultado"></p>
     </div>
@@ -263,46 +275,7 @@
         <p class="texto-felicidades-mensaje">!Lo hiciste muy bien!, Puedes continuar con la siguiente vocal.</p>
         <button onclick="window.location.href='inicio.html'">Volver al inicio</button>
     </div>
-
-    <div id="nuevo-contenido" class="container hidden">
-        <h1>¡Bien hecho!</h1>
-        <p>Ahora estás listo para aprender más letras.</p>
-    </div>
-
-    <script>
-        let yaSeleccionado = false;
-
-        function validarRespuesta(correcta, elemento) {
-            if (yaSeleccionado && correcta) return;
-
-            const mensaje = document.getElementById('mensaje-ejercicio');
-            if (correcta) {
-                yaSeleccionado = true;
-                mensaje.textContent = '¡Correcto! 🎉';
-                mensaje.style.color = 'green';
-                setTimeout(() => {
-                    document.getElementById('seccion-ejercicios').classList.add('hidden');
-                    document.getElementById('seccion-felicitaciones').classList.remove('hidden');
-                }, 1500);
-            } else {
-                mensaje.textContent = 'Incorrecto 😅. Sigue intentando.';
-                mensaje.style.color = 'red';
-            }
-        }
-        async function irACamara() {
-            document.getElementById('seccion-intro').classList.add('hidden');
-            document.getElementById('seccion-camara').classList.remove('hidden');
-
-            await new Promise(r => setTimeout(r, 100));
-
-            const modulo = await import('./app.js');
-            modulo.iniciarReconocimiento(); // Asegúrate que esta función esté exportada en app.js
-        }
-        function irAEjercicios() {
-            document.getElementById('seccion-camara').classList.add('hidden');
-            document.getElementById('seccion-ejercicios').classList.remove('hidden');
-        }
-    </script>
+    <script src="./funcion.js" />
 </body>
 
 </html>

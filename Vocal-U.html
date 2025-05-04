@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -33,14 +34,16 @@
         }
 
         .seccion-mono img {
-            width: 400px; /* Ajusta el tamaño del mono */
+            width: 400px;
+            /* Ajusta el tamaño del mono */
             height: auto;
         }
 
         .dialogo {
             position: absolute;
             top: -20%;
-            left: 45%; /* Posiciona el texto a la derecha de la imagen */
+            left: 45%;
+            /* Posiciona el texto a la derecha de la imagen */
             background-color: #fff;
             padding: 1rem;
             border-radius: 10px;
@@ -53,7 +56,8 @@
         .descripcion {
             position: relative;
             top: -30%;
-            left: 110%; /* Posiciona el texto a la derecha de la imagen */
+            left: 110%;
+            /* Posiciona el texto a la derecha de la imagen */
             background-color: #fff;
             padding: 1rem;
             border-radius: 10px;
@@ -64,7 +68,8 @@
         }
 
         .center-image {
-            width: 300px; /* Ajusta el tamaño de la imagen de la seña */
+            width: 300px;
+            /* Ajusta el tamaño de la imagen de la seña */
             height: auto;
             margin-bottom: -3rem;
         }
@@ -73,14 +78,17 @@
             background-color: #266ced;
             color: white;
             border: none;
-            padding: 1.5rem 3rem; /* Aumenta el tamaño del botón */
-            font-size: 1.5rem; /* Incrementa el tamaño del texto */
+            padding: 1.5rem 3rem;
+            /* Aumenta el tamaño del botón */
+            font-size: 1.5rem;
+            /* Incrementa el tamaño del texto */
             cursor: pointer;
             border-radius: 50px;
             box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
             transition: transform 0.2s, background-color 0.3s;
             position: absolute;
-            bottom: 10%; /* Posiciona el botón hacia el centro inferior */
+            bottom: 10%;
+            /* Posiciona el botón hacia el centro inferior */
         }
 
         button:hover {
@@ -94,18 +102,35 @@
 
         .texto-letra {
             position: absolute;
-            top: -260px; /* Ajusta la posición vertical del texto */
+            top: -260px;
+            /* Ajusta la posición vertical del texto */
             left: 50%;
             transform: translateX(-50%);
-            font-size: 13rem; /* Tamaño de la letra */
-            font-weight: bold; /* Hace el texto bold */
-            color: #266ced; /* Cambia el color del texto */
-            font-family: "Arial", sans-serif; /* Cambia la fuente si es necesario */
+            font-size: 13rem;
+            /* Tamaño de la letra */
+            font-weight: bold;
+            /* Hace el texto bold */
+            color: #266ced;
+            /* Cambia el color del texto */
+            font-family: "Arial", sans-serif;
+            /* Cambia la fuente si es necesario */
+        }
+
+        .camara-borde {
+            border: 10px solid red;
+            /* valor por defecto */
+            border-radius: 20px;
+            transition: border-color 0.3s ease;
+        }
+
+        .camara-reconocida {
+            border-color: green;
         }
     </style>
 </head>
+
 <body>
-    <div id="contenido-inicial" class="container">
+    <div id="seccion-intro" class="container">
         <!-- Sección del mono -->
         <div class="seccion-mono">
             <img src="./Assets/banana.png" alt="Banana">
@@ -124,19 +149,48 @@
         </div>
 
         <!-- Botón -->
-        <button onclick="showNewContent()">Entendido</button>
+        <button onclick="irACamara()">Entendido</button>
     </div>
 
-    <div id="nuevo-contenido" class="container hidden">
-        <h1>¡Bien hecho!</h1>
-        <p>Ahora estás listo para aprender más letras.</p>
+    <!-- SECCIÓN 2: CÁMARA -->
+    <div id="seccion-camara" class="container hidden" data-vocal="U">
+        <h1 class="textocam">Reconocimiento de la vocal U</h1>
+        <div>
+            <div class="seccion-camara-mono">
+                <img src="./Assets/manu-emocionado.png" alt="Manu el mono">
+                <div class="dialogo-cam">
+                    ¡Ahora intenta hacer la vocal U!
+                </div>
+            </div>
+            <video id="webcam" class="camara-borde" autoplay playsinline width="480" height="360"></video>
+        </div>
+        <p class="texto-resultado">Resultado: <span id="resultado">Esperando...</span></p>
+        <button id="btn-continuar" onclick="irAEjercicios()" disabled>Continuar</button>
     </div>
 
-    <script>
-        function showNewContent() {
-            document.getElementById('contenido-inicial').classList.add('hidden');
-            document.getElementById('nuevo-contenido').classList.remove('hidden');
-        }
-    </script>
+    <!-- SECCIÓN 3: EJERCICIOS -->
+    <div id="seccion-ejercicios" class="container hidden">
+        <h1 class="texto-felicidades">Ejercicio</h1>
+        <p class="texto-felicidades-mensaje"> Selecciona la seña correcta para la vocal U:</p>
+        <div class="seleccion-ejercicio" style="display: flex; gap: 2rem;">
+            <img src="./Assets/A-Sena.png" alt="A" width="150" onclick="validarRespuesta(false, this)">
+            <img src="./Assets/U-Sena.png" alt="A" width="150" onclick="validarRespuesta(true, this)">
+            <img src="./Assets/O-Sena.png" alt="E" width="150" onclick="validarRespuesta(false, this)">
+            <img src="./Assets/E-Sena.png" alt="E" width="150" onclick="validarRespuesta(false, this)">
+            <img src="./Assets/I-Sena.png" alt="E" width="150" onclick="validarRespuesta(false, this)">
+        </div>
+        <p id="mensaje-ejercicio" class="texto-resultado"></p>
+    </div>
+
+    <!-- SECCIÓN 4: FELICITACIONES -->
+    <div id="seccion-felicitaciones" class="container hidden">
+        <h1 class="texto-felicidades">🎉 ¡Felicidades!</h1>
+        <img src="./Assets/manuchiquito-feliz.png" alt="Manu feliz" width="300" style="margin-bottom: 10%;">
+        <p class="texto-felicidades-mensaje">¡Lo lograste! Ahora puedes seguir aprendiendo las demás vocales.</p>
+        <button onclick="window.location.href='inicio.html'">Volver al inicio</button>
+    </div>
+
+    <script src="./funcion.js" />
 </body>
+
 </html>
