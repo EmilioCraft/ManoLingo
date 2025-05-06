@@ -13,11 +13,11 @@ let rondaActual = 0;
 
 const vocales = ["A", "E", "I", "O", "U"];
 const ejercicios = {
-  A: ["A", "E"],
-  E: ["E", "I"],
+  A: ["A", "E", "I"],
+  E: ["E", "I", "O", "U"],
   I: ["I", "O"],
-  O: ["O", "U"],
-  U: ["U", "A"],
+  O: ["O", "U", "A", "E"],
+  U: ["U", "A", "I", "O", "E"],	
 };
 
 async function iniciarCamara() {
@@ -45,13 +45,14 @@ async function iniciarReconocedor() {
   console.log("✅ Modelo cargado y listo");
 }
 
-function detectar() {
+async function detectar() {
   if (!gestureRecognizer || yaReconocida) return;
+    const prediction = await gestureRecognizer.recognizeForVideo(
+      videoElement,
+      performance.now()
+    );
 
-  gestureRecognizer
-    .recognizeForVideo(videoElement, performance.now())
-    .then((prediction) => {
-      const webcam = document.getElementById("webcam");
+    const webcam = document.getElementById("webcam");
 
       if (prediction && prediction.gestures.length > 0) {
         const detectada = prediction.gestures[0][0].categoryName;
@@ -71,8 +72,8 @@ function detectar() {
       }
 
       requestAnimationFrame(detectar);
-    });
-}
+    }
+
 
 export async function empezarJuego() {
   document.getElementById("contenido-inicial").classList.add("hidden");
@@ -83,7 +84,12 @@ export async function empezarJuego() {
 }
 
 function iniciarRonda() {
-  vocalActual = vocales[rondaActual];
+  if (!iniciarRonda.vocalesRestantes || iniciarRonda.vocalesRestantes.length === 0) {
+    iniciarRonda.vocalesRestantes = [...vocales]; 
+  }
+
+  const randomIndex = Math.floor(Math.random() * iniciarRonda.vocalesRestantes.length);
+  vocalActual = iniciarRonda.vocalesRestantes.splice(randomIndex, 1)[0];
   yaReconocida = false;
   botonContinuar.disabled = true;
   resultadoSpan.textContent = "Esperando...";
@@ -104,18 +110,28 @@ export function irAEjercicios() {
   document.getElementById("seccion-ejercicios").classList.remove("hidden");
 
   const contenedor = document.querySelector(".seleccion-ejercicio");
-  contenedor.innerHTML = ""; // limpia antes
+  contenedor.innerHTML = ""; 
 
-  const opciones = ejercicios[vocalActual];
+  if (!irAEjercicios.vocalesRestantes || irAEjercicios.vocalesRestantes.length === 0) {
+    irAEjercicios.vocalesRestantes = [...vocales];
+  }
+
+  const randomIndex = Math.floor(Math.random() * irAEjercicios.vocalesRestantes.length);
+  const vocalRandom = irAEjercicios.vocalesRestantes.splice(randomIndex, 1)[0];
+
+  const opciones = ejercicios[vocalRandom];
   opciones.forEach((opcion) => {
     const img = document.createElement("img");
     img.src = `./Assets/${opcion}-Sena.png`;
     img.alt = opcion;
     img.width = 150;
-    img.onclick = () => validarRespuesta(opcion === vocalActual, img);
+    img.onclick = () => validarRespuesta(opcion === vocalRandom, img);
     contenedor.appendChild(img);
   });
 
+  document.querySelector(
+    ".texto-seleccionar-sena"
+  ).textContent = `Selecciona la seña correcta para la vocal: ${vocalRandom}`;
   document.getElementById("mensaje-ejercicio").textContent = "";
 }
 
@@ -151,6 +167,8 @@ window.addEventListener("DOMContentLoaded", async () => {
   videoElement = document.getElementById("webcam");
   resultadoSpan = document.getElementById("resultado");
   botonContinuar = document.getElementById("btn-continuar");
-
+  if (botonContinuar) {
+    botonContinuar.addEventListener("click", irAEjercicios);
+  } 
   await iniciarReconocedor(); // solo una vez
 });

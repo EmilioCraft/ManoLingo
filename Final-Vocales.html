@@ -46,7 +46,13 @@
             filter: grayscale(1);
             transform: scale(0.95);
         }
-
+        .texto-seleccionar-sena {
+            font-family: "Adobe Gothic Std B", sans-serif;
+            position: absolute;
+            font-size: 3rem;
+            top: 60%;
+            color: #266ced;
+        }
     </style>
 </head>
 
@@ -76,7 +82,7 @@
     <!-- SECCIÓN EJERCICIOS -->
     <div id="seccion-ejercicios" class="container hidden">
         <h1 class="texto-felicidades">Ejercicio</h1>
-        <p class="texto-felicidades-mensaje">Selecciona la seña correcta para la vocal:</p>
+        <p class="texto-seleccionar-sena">Selecciona la seña correcta para la vocal:</p>
         <div class="seleccion-ejercicio" style="display: flex; gap: 2rem;"></div>
         <p id="mensaje-ejercicio" class="texto-resultado"></p>
     </div>
