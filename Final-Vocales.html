@@ -11,7 +11,32 @@
         .hidden {
             display: none;
         }
+        .seccion-mono {
+            position: absolute;
+            top: 15%;
+            left: 35%;
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+        }
 
+        .seccion-mono img {
+            width: 400px; /* Ajusta el tamaño del mono */
+            height: auto;
+        }
+
+        .dialogo {
+            position: absolute;
+            top: 5%;
+            left: -60%; /* Posiciona el texto a la derecha de la imagen */
+            background-color: #fff;
+            padding: 1rem;
+            border-radius: 10px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            font-size: 1.5rem;
+            color: #333;
+            max-width: 200px;
+        }
         .camara-reconocida {
             border: 5px solid #00cc00;
             box-shadow: 0 0 20px #00cc00;
@@ -21,6 +46,7 @@
             filter: grayscale(1);
             transform: scale(0.95);
         }
+
     </style>
 </head>
 
