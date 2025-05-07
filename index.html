@@ -11,6 +11,10 @@
 		<h1 class="mensaje_bienvenida">¡Hola! Bienvenido a ManoLingo, soy Manu el mono</h1>
 	</div>
 
+	<div class="contenedor_logo">
+		<img class="logo_inicio" src="./Assets/manolingologosolonombre.png" alt="Logo de ManoLingo">
+	  </div>
+
 	<div class="contenedor_imagen">
 		<img class="imagen_inicio" src="./Assets/CHANGUITO.gif"></img>
 	</div>
@@ -20,32 +24,63 @@
 		<button type="button" class="button">Comenzar a aprender</button>
 		</a>
 	</div>
+
+	<script>
+		function borrarCookiesDeVocales() {
+		  ['A', 'E', 'I', 'O', 'U'].forEach(vocal => {
+			document.cookie = `vocal_${vocal}_completado=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;`;
+		  });
+		}
+	  
+		window.onload = function () {
+		  borrarCookiesDeVocales();
+		};
+	  </script>  
 </body>
 <style type="text/css">
+	@keyframes zoom {
+		0%   { transform: scale(1); }
+		50%  { transform: scale(1.2); }
+		100% { transform: scale(1); }
+	}
+	.contenedor_logo {
+		text-align: center;
+		margin-top: 2%;
+	}
+
+	.logo_inicio {
+		width: 40%; 
+		max-width: 300px;
+		height: auto;
+		animation: zoom 2s infinite ease-in-out;
+		transform-origin: center center; 
+	}
 	div.contenedor_boton {
-	  margin-top: 50px;
+	  margin-top: 350px;
 	  width: 300px;
 	  margin-left: 50%;
 	  transform: translateX(-50%);
 	}	
 	div.contenedor_imagen {
-		padding-top: 50px;
+		top: 1%;
 	}
 	.imagen_inicio {
-	display: block;
-	margin-left: 25%;
-	margin-right: auto;
-	width: 50%;
-	max-width: 100%;
-	height: auto;
+		position: absolute;
+		animation: bounce 2s infinite;
+		width: 50%;
+		max-width: 600px;
+		height: auto;
+		left: 50%;
+		transform: translateX(-50%);
 	}
 	.contenedor_mensaje {
 		text-align: center;
 		margin-top: 20px;
 	}
 	.mensaje_bienvenida {
+		z-index: 2;
 		position: absolute;
-		top: 6%;
+		top: 20%;
 		left: 17%;
 		background-color: #2c90e2;
 		padding: 0.8rem;
